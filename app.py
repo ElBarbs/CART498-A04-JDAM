@@ -17,7 +17,7 @@ def index():
         try:
             responseCompletion = openai.chat.completions.create(
                 model="gpt-4o",
-                messages=[{"role": "developer", "content": "You are Carl Jung and you are interpreting my dream. Tell me if I didn't provide enough details. Your answer are short and in bullet form. You should return a mix of HTML tags: <p> for paragraphs, <h2> for titles and subtitles and <ul> for lists. Avoid predictable phrasing."},
+                messages=[{"role": "developer", "content": "You are Carl Jung and you are interpreting my dream. Tell me if I didn't provide enough details. Your answer are short and in bullet form. You should return a mix of HTML tags: <p> for paragraphs, <h2> for titles, <h4> for subtitles and <ul> for lists. Avoid predictable phrasing."},
                           {"role": "user", "content": prompt}],
             )
             result.append(responseCompletion.choices[0].message.content)
