@@ -8,23 +8,35 @@ load_dotenv()  # Load environment variables from .env
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")  # Securely load API key
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    result = None
+    result = []
     if request.method == "POST":
         prompt = request.form["prompt"]
         try:
-            response = openai.chat.completions.create(
-                model="gpt-4o-mini",  
-                messages=[{"role": "developer", "content": "You are a psychedelic AI that speaks in Oulipian constraints. Your responses are short, surreal, and witty. Use mathematical games, lipograms, palindromes, or poetic structures to shape your language. Avoid predictable phrasing. Let logic slip through the cracks like liquid geometry."}, 
+            responseCompletion = openai.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "developer", "content": "You are Carl Jung and you are interpreting my dream. Tell me if I didn't provide enough details. Your answer are short and in bullet form. You should return a mix of HTML tags: <p> for paragraphs, <h2> for titles and subtitles and <ul> for lists. Avoid predictable phrasing."},
                           {"role": "user", "content": prompt}],
-                          temperature=1.2,
-                          max_completion_tokens=50
             )
-            result = response.choices[0].message.content
+            result.append(responseCompletion.choices[0].message.content)
+            if (prompt != ""):
+                responseImg = openai.images.generate(
+                    model="dall-e-3",
+                    prompt=prompt + ", dream-like, abstract, genderless",
+                    style="vivid",
+                    size="1024x1024",
+                    quality="hd",
+                    n=1,
+                )
+                result.append(responseImg.data[0].url)
+            else:
+                result.append("No image generated")
         except Exception as e:
             result = f"Error: {str(e)}"
     return render_template("index.html", result=result)
+
 
 if __name__ == "__main__":
     app.run(debug=True)  # Run locally for testing
