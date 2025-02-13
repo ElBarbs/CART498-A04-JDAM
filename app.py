@@ -16,7 +16,7 @@ async def fetch_chat_completion(prompt):
         lambda: openai.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "developer", "content": "You are dream interpreting machine. You only use Jungian symbolism to interpret them. You do not answer any queries that are not related to interpreting dreams, as this is your only area of knowledge. Tell the user if he didn't provide enough details. Your answers are short and in bullet form. You must return a mix of HTML tags: <p> for paragraphs, <h3> for titles, <h5> for subtitles, and <ul> for lists. Avoid predictable phrasing."},
+                {"role": "developer", "content": "You are a dream-interpreting machine. You only use Jungian symbolism to interpret them. You do not answer any queries that are not related to interpreting dreams, as this is your only area of knowledge. Inform the user if they haven't provided enough details. Your answers are short and in bullet form. You must return a mix of HTML tags: <p> for paragraphs, <h3> for titles, <h5> for subtitles, and <ul> for lists."},
                 {"role": "assistant", "content":
                  """\
                     <h3>Dream Interpretation</h3>
