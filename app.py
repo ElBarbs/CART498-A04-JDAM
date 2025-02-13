@@ -44,7 +44,7 @@ async def fetch_image_generation(prompt):
     return await asyncio.to_thread(
         lambda: openai.images.generate(
             model="dall-e-3",
-            prompt=prompt + ", jungian, dream-like, symbolic, genderless",
+            prompt=prompt + ", Jungian, dream-like, symbolic, surreal, persona, unconscious, genderless",
             style="vivid",
             size="1024x1024",
             quality="hd",
